@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
+    [Header("Globals")]
+    public Input_Handler INPUT_HANDLER;
+
+    [Header("Parameters")]
     public GameObject player_pivot;
     public GameObject player_cam_obj;
     public Camera player_cam;
@@ -29,8 +33,12 @@ public class PlayerCamera : MonoBehaviour
 
     void Update()
     {
-        float mouse_x = Input.GetAxis("Mouse X") * sensitivity_x * Time.deltaTime;
-        float mouse_y = Input.GetAxis("Mouse Y") * sensitivity_y * Time.deltaTime;
+        float mouse_x = INPUT_HANDLER.get_mouse_x() * sensitivity_x * Time.deltaTime;
+        float mouse_y = 0;
+        if(!INPUT_HANDLER.get_mouse_0())
+        {
+            mouse_y = INPUT_HANDLER.get_mouse_y() * sensitivity_y * Time.deltaTime;
+        }
 
         yaw += mouse_x;
         pitch -= mouse_y;
